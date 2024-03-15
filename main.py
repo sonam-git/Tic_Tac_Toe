@@ -1,7 +1,9 @@
+import random
+
 # variable declaration
 game_board = ["-", "-", "-",
               "-", "-", "-",
-              "-", "-", "-", ]
+              "-", "-", "-"]
 currentPlayer = 'X'
 winner = None
 gameRunning = True
@@ -24,9 +26,6 @@ def playerInput(game_board):
         game_board[playerInp - 1] = currentPlayer
     else:
         print("Opps! player is already in that spot!")
-
-
-playerInput(game_board)
 
 
 # check win function
@@ -80,7 +79,7 @@ def checkTie(game_board):
 
 def checkWin():
     if checkDag(game_board) or checkHorizontal(game_board) or checkRow(game_board):
-        print(f"The winner is{winner}")
+        print(f"The winner is {winner}")
 
 
 # switch player
@@ -92,9 +91,21 @@ def switchPlayer():
         currentPlayer = 'X'
 
 
+# computer player
+def computer(game_board):
+    while currentPlayer == "O":
+        position = random.randint(0, 8)
+        if game_board[position] == "-":
+            game_board[position] = "O"
+            switchPlayer()
+
+
 while gameRunning:
-    print(game_board)
+    printBoard(game_board)
     playerInput(game_board)
     checkWin()
-    checkTie(game_board4)
+    checkTie(game_board)
     switchPlayer()
+    computer(game_board)
+    checkWin()
+    checkTie(game_board)
